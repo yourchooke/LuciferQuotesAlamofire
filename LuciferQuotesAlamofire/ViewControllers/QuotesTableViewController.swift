@@ -11,27 +11,19 @@ import Alamofire
 class QuotesTableViewController: UITableViewController {
     
     
-    let quotesLink = "https://lucifer-quotes.vercel.app/api/quotes/5"
+    private let quotesLink = "https://lucifer-quotes.vercel.app/api/quotes/5"
     var quotes: [Quote] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 112
-        NetworkManager.shared.fetchDataWithAlamofire(quotesLink) { result in
-                switch result {
-                case .success(let quotes):
-                    self.quotes = quotes
-                    self.tableView.reloadData()
-                case .failure(let error):
-                    print(error)
-                }
-            }
+        fetchQuotes()
         }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        5
+        quotes.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,5 +52,16 @@ class QuotesTableViewController: UITableViewController {
         return cell
     }
     
+    func fetchQuotes(){
+        NetworkManager.shared.fetchDataWithAlamofire(quotesLink) { result in
+                switch result {
+                case .success(let quotes):
+                    self.quotes = quotes
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+    }
 
 }

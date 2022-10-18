@@ -10,7 +10,8 @@ import Alamofire
 
 class NetworkManager {
     static let shared = NetworkManager()
-    let quotesLink = "https://lucifer-quotes.vercel.app/api/quotes/5"
+    
+    private let quotesLink = "https://lucifer-quotes.vercel.app/api/quotes/5"
     
     init() {}
     
